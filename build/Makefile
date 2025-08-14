@@ -8,7 +8,7 @@ clean:
 	@mkdir -p $(OUT)
 
 book-pdf:
-	pandoc -o $(OUT)/villain-in-the-verse.pdf \
+	pandoc --pdf-engine=xelatex -o $(OUT)/villain-in-the-verse.pdf \
 	  --from markdown \
 	  --toc --toc-depth=2 \
 	  --metadata title="The Villain in the Verse" \
