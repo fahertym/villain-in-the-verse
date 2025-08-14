@@ -10,20 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install pandoc + TeX bits
+      - name: Install pandoc + TeX + SVG converter
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc texlive-xetex texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended fonts-dejavu fonts-liberation librsvg2-bin
-
-      - name: Convert SVGs to PDF/PNG
-        run: |
-          set -e
-          shopt -s nullglob
-          for s in figures/*.svg; do
-            b="${s%.svg}"
-            rsvg-convert -f pdf -o "${b}.pdf" "$s"
-            rsvg-convert -f png -o "${b}.png" "$s"
-          done
+          sudo apt-get install -y \
+            pandoc texlive-xetex texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended fonts-dejavu fonts-liberation \
+            librsvg2-bin
 
       - name: Build
         run: make -C build all
