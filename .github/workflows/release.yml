@@ -1,0 +1,32 @@
+name: release-book
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # needed to create a GitHub Release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pandoc + TeX + SVG converter
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            pandoc texlive-xetex texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended fonts-dejavu fonts-liberation \
+            librsvg2-bin
+
+      - name: Build
+        run: make -C build all
+
+      - name: Create GitHub Release and upload artifacts
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build/_out/villain-in-the-verse.pdf
+            build/_out/villain-in-the-verse.epub
+            build/_out/villain-in-the-verse.docx
