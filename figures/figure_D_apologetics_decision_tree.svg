@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="220">
+  <style>.box{fill:none;stroke:black;stroke-width:2}.label{font-family:Arial;font-size:14px}</style>
+  <text x="20" y="30" class="label">Figure D: Apologetics Decision Tree</text>
+  <rect class="box" x="20" y="60" width="120" height="40" rx="8"/><text class="label" x="30" y="85">Atrocity?</text>
+  <rect class="box" x="160" y="60" width="120" height="40" rx="8"/><text class="label" x="170" y="85">Context</text>
+  <rect class="box" x="300" y="60" width="120" height="40" rx="8"/><text class="label" x="310" y="85">Free Will</text>
+  <rect class="box" x="440" y="60" width="140" height="40" rx="8"/><text class="label" x="450" y="85">Greater Good</text>
+  <rect class="box" x="600" y="60" width="160" height="40" rx="8"/><text class="label" x="610" y="85">Mysterious Ways</text>
+  <rect class="box" x="780" y="60" width="100" height="40" rx="8"/><text class="label" x="790" y="85">Not Literal</text>
+  <rect class="box" x="440" y="140" width="200" height="40" rx="8"/><text class="label" x="450" y="165">They Deserved It</text>
+  <rect class="box" x="660" y="140" width="220" height="40" rx="8"/><text class="label" x="670" y="165">Atrocity Accepted</text>
+</svg>

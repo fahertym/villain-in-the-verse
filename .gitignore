@@ -1,0 +1,13 @@
+# Build artifacts
+build/_out/
+build/dist/
+*.aux
+*.log
+*.out
+*.pdf
+*.epub
+*.docx
+.DS_Store
+.venv/
+__pycache__/
+Thumbs.db

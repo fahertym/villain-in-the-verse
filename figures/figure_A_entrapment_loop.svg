@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="200">
+  <style>
+    .box{fill:none;stroke:black;stroke-width:2}
+    .label{font-family:Arial;font-size:14px}
+  </style>
+  <text x="20" y="30" class="label">Figure A: Entrapment Loop (Eden Pattern)</text>
+  <rect class="box" x="20" y="60" width="140" height="60" rx="10"/><text class="label" x="30" y="95">Design Vulnerability</text>
+  <rect class="box" x="180" y="60" width="140" height="60" rx="10"/><text class="label" x="190" y="95">Engineer Trigger</text>
+  <rect class="box" x="340" y="60" width="140" height="60" rx="10"/><text class="label" x="350" y="95">Predictable Failure</text>
+  <rect class="box" x="500" y="60" width="160" height="60" rx="10"/><text class="label" x="510" y="95">Disproportionate Punishment</text>
+  <rect class="box" x="680" y="60" width="180" height="60" rx="10"/><text class="label" x="690" y="95">'Mercy' PR → Reset</text>
+</svg>

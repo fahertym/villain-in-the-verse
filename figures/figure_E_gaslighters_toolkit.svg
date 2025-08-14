@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="220">
+  <style>.box{fill:none;stroke:black;stroke-width:2}.label{font-family:Arial;font-size:14px}</style>
+  <text x="20" y="30" class="label">Figure E: Gaslighter's Toolkit</text>
+  <rect class="box" x="20" y="60" width="150" height="40" rx="8"/><text class="label" x="30" y="85">Love-bombing</text>
+  <rect class="box" x="190" y="60" width="180" height="40" rx="8"/><text class="label" x="200" y="85">Moving Goalposts</text>
+  <rect class="box" x="390" y="60" width="130" height="40" rx="8"/><text class="label" x="400" y="85">Isolation</text>
+  <rect class="box" x="540" y="60" width="160" height="40" rx="8"/><text class="label" x="550" y="85">Reality Revision</text>
+  <rect class="box" x="720" y="60" width="160" height="40" rx="8"/><text class="label" x="730" y="85">Trauma Bonding</text>
+  <rect class="box" x="20" y="120" width="220" height="40" rx="8"/><text class="label" x="30" y="145">Learned Helplessness</text>
+</svg>

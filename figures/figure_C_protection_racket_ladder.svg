@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="260">
+  <style>.box{fill:none;stroke:black;stroke-width:2}.label{font-family:Arial;font-size:14px}</style>
+  <text x="20" y="30" class="label">Figure C: Protection Racket Ladder</text>
+  <rect class="box" x="20" y="60" width="300" height="40" rx="8"/><text class="label" x="30" y="85">Invent Threat → Impose Debt</text>
+  <rect class="box" x="20" y="110" width="300" height="40" rx="8"/><text class="label" x="30" y="135">Gate Payment → Sell Protection</text>
+  <rect class="box" x="20" y="160" width="300" height="40" rx="8"/><text class="label" x="30" y="185">Demand Loyalty → Enforce with Terror</text>
+</svg>
