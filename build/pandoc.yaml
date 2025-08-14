@@ -13,3 +13,5 @@ variables:
 resource-path:
   - ".."
   - "."
+pdf-engine-opt:
+  - "-shell-escape"

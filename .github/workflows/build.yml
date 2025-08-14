@@ -9,10 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install pandoc + TeX bits
+      - name: Install pandoc + TeX + SVG converter
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc texlive-xetex texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended fonts-dejavu fonts-liberation
+          sudo apt-get install -y \
+            pandoc texlive-xetex texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended fonts-dejavu fonts-liberation \
+            librsvg2-bin
       - name: Build
         run: make -C build all
       - name: Upload artifacts
