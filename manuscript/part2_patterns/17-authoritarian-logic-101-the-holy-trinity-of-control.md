@@ -74,4 +74,4 @@ We've internalized divine authoritarianism so completely that we barely notice i
 
 ---
 
-![Figure E — Gaslighter’s Toolkit](../../figures/figure_E_gaslighters_toolkit.svg)
+![Figure E — Gaslighter’s Toolkit](figures/figure_E_gaslighters_toolkit.svg)

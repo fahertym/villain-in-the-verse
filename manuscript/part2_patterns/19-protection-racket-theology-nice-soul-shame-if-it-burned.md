@@ -75,4 +75,4 @@ Every system that creates a problem then sells you the solution learned from the
 
 ---
 
-![Figure C — Protection Racket Ladder](../../figures/figure_C_protection_racket_ladder.svg)
+![Figure C — Protection Racket Ladder](figures/figure_C_protection_racket_ladder.svg)

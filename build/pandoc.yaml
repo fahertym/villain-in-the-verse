@@ -10,3 +10,6 @@ variables:
   monofont: "DejaVu Sans Mono"
   papersize: "letter"
   geometry: "margin=1in"
+resource-path:
+  - ".."
+  - "."

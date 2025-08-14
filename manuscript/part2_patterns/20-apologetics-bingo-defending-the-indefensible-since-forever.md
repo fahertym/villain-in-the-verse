@@ -98,4 +98,4 @@ The very existence of apologetics proves the point: the God of the Bible behaves
 
 ---
 
-![Figure D — Apologetics Decision Tree](../../figures/figure_D_apologetics_decision_tree.svg)
+![Figure D — Apologetics Decision Tree](figures/figure_D_apologetics_decision_tree.svg)
