@@ -9,15 +9,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install pandoc + TeX + SVG converter
+
+      - name: Install pandoc + TeX bits
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            pandoc texlive-xetex texlive-latex-recommended texlive-latex-extra \
-            texlive-fonts-recommended fonts-dejavu fonts-liberation \
-            librsvg2-bin
+          sudo apt-get install -y pandoc texlive-xetex texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended fonts-dejavu fonts-liberation librsvg2-bin
+
+      - name: Convert SVGs to PDF/PNG
+        run: |
+          set -e
+          shopt -s nullglob
+          for s in figures/*.svg; do
+            b="${s%.svg}"
+            rsvg-convert -f pdf -o "${b}.pdf" "$s"
+            rsvg-convert -f png -o "${b}.png" "$s"
+          done
+
       - name: Build
         run: make -C build all
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
