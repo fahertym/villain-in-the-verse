@@ -4,6 +4,10 @@
 
 
 
+> **Figure:**
+
+
+
 Every authoritarian system, divine or otherwise, runs the same three-step program:
 
 **Step 1: Entrapment** - Create a situation where failure is inevitable

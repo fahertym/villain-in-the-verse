@@ -4,6 +4,10 @@
 
 
 
+> **Figure:**
+
+
+
 The mafia didn't invent protection rackets. They just simplified God's business model. The divine version has better marketing—"salvation" sounds nicer than "protection money"—but the underlying mechanism is identical: I create the threat, I sell you safety from it, and you'd better be grateful.
 
 ### The Threat That Makes No Sense

@@ -4,6 +4,10 @@
 
 
 
+> **Figure:**
+
+
+
 Every atrocity in the Bible comes with a ready-made excuse. Two thousand years of theology has produced a defense for everything from genocide to bear maulings. These aren't explanations—they're elaborate misdirections designed to make you stop thinking about the obvious horror.
 
 Let's play Apologetics Bingo. Get five in a row of these classic defenses, and you win... nothing. Because these aren't answers. They're admissions that the behavior is so indefensible it requires reality-bending rhetoric to justify.
