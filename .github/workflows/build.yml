@@ -14,12 +14,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y pandoc texlive-xetex texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended fonts-dejavu fonts-liberation
       - name: Build
-        run: make -C build all || make -C build book-pdf book-epub book-docx
+        run: make -C build all
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: villain-in-the-verse-artifacts
-          path: |
-            build/_out/villain-in-the-verse.pdf
-            build/_out/villain-in-the-verse.epub
-            build/_out/villain-in-the-verse.docx
+          name: book-bundles
+          path: build/_out/*
+          if-no-files-found: error
+          retention-days: 14

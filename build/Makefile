@@ -16,13 +16,13 @@ clean:
 	@mkdir -p $(OUT)
 
 book-pdf:
-	pandoc -d pandoc.yaml -d pandoc.yaml --pdf-engine=xelatex -o $(OUT)/villain-in-the-verse.pdf $(SRC)
+	pandoc -d pandoc.yaml --pdf-engine=xelatex -o $(OUT)/villain-in-the-verse.pdf $(SRC)
 
 book-epub:
-	pandoc -d pandoc.yaml -d pandoc.yaml -o $(OUT)/villain-in-the-verse.epub $(SRC)
+	pandoc -d pandoc.yaml -o $(OUT)/villain-in-the-verse.epub $(SRC)
 
 book-docx:
-	pandoc -d pandoc.yaml -d pandoc.yaml -o $(OUT)/villain-in-the-verse.docx $(SRC)
+	pandoc -d pandoc.yaml -o $(OUT)/villain-in-the-verse.docx $(SRC)
 
 lint:
 	@echo "(add markdown linting here)"

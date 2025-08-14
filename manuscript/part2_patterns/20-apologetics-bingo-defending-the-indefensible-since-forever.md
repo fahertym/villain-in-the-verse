@@ -1,5 +1,9 @@
 ## Chapter 20: Apologetics Bingo - Defending the Indefensible Since Forever
 
+> **Figure:**
+
+
+
 Every atrocity in the Bible comes with a ready-made excuse. Two thousand years of theology has produced a defense for everything from genocide to bear maulings. These aren't explanations—they're elaborate misdirections designed to make you stop thinking about the obvious horror.
 
 Let's play Apologetics Bingo. Get five in a row of these classic defenses, and you win... nothing. Because these aren't answers. They're admissions that the behavior is so indefensible it requires reality-bending rhetoric to justify.
@@ -89,3 +93,5 @@ Every square is an admission that the behavior described is so obviously wrong i
 The very existence of apologetics proves the point: the God of the Bible behaves so badly that it takes two thousand years of excuse-making to make it seem acceptable. And even then, it only works if you stop thinking about what you're actually defending.
 
 ---
+
+![Figure D — Apologetics Decision Tree](../../figures/figure_D_apologetics_decision_tree.svg)

@@ -1,5 +1,9 @@
 ## Chapter 19: Protection Racket Theology - Nice Soul, Shame If It Burned
 
+> **Figure:**
+
+
+
 The mafia didn't invent protection rackets. They just simplified God's business model. The divine version has better marketing—"salvation" sounds nicer than "protection money"—but the underlying mechanism is identical: I create the threat, I sell you safety from it, and you'd better be grateful.
 
 ### The Threat That Makes No Sense
@@ -66,3 +70,5 @@ The divine protection racket established the template:
 Every system that creates a problem then sells you the solution learned from the ultimate protection racket: salvation from damnation. The formula is perfect—the threat is invisible, unprovable, and eternal, while the payment is immediate, tangible, and never-ending.
 
 ---
+
+![Figure C — Protection Racket Ladder](../../figures/figure_C_protection_racket_ladder.svg)

@@ -1,5 +1,9 @@
 ## Chapter 17: Authoritarian Logic 101 - The Holy Trinity of Control
 
+> **Figure:**
+
+
+
 Every authoritarian system, divine or otherwise, runs the same three-step program:
 
 **Step 1: Entrapment** - Create a situation where failure is inevitable
@@ -65,3 +69,5 @@ The authoritarian logic of the Bible didn't stay in the Bible. It became the ope
 We've internalized divine authoritarianism so completely that we barely notice it anymore. We call it "leadership" or "accountability" or "tough love." But it's the same program God ran in Eden: entrap, punish, demand gratitude. Repeat until submission is complete.
 
 ---
+
+![Figure E — Gaslighter’s Toolkit](../../figures/figure_E_gaslighters_toolkit.svg)
