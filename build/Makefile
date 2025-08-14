@@ -1,17 +1,13 @@
 OUT=./_out
-MANU=../manuscript
-
-# Ordered list of input files:
-FILES= \
-  $(MANU)/frontmatter/titlepage.md \
-  $(MANU)/frontmatter/introduction.md \
-  $(MANU)/part1_case_files/*.md \
-  $(MANU)/part2_patterns/patterns_overview.md \
-  $(MANU)/part2_patterns/*.md \
-  $(MANU)/part3_fallout/fallout_overview.md \
-  $(MANU)/part4_apologetics/field_guide.md \
-  $(MANU)/part5_exit_routes/exit_routes.md \
-  $(MANU)/frontmatter/acknowledgments.md
+SRC=../manuscript/frontmatter/titlepage.md \
+    ../manuscript/frontmatter/introduction.md \
+    ../manuscript/part1_case_files/*.md \
+    ../manuscript/part2_patterns/patterns_overview.md \
+    ../manuscript/part2_patterns/*.md \
+    ../manuscript/part3_fallout/fallout_overview.md \
+    ../manuscript/part4_apologetics/field_guide.md \
+    ../manuscript/part5_exit_routes/exit_routes.md \
+    ../manuscript/frontmatter/acknowledgments.md
 
 all: clean book-pdf book-epub book-docx
 
@@ -20,28 +16,13 @@ clean:
 	@mkdir -p $(OUT)
 
 book-pdf:
-	pandoc --pdf-engine=xelatex -o $(OUT)/villain-in-the-verse.pdf \
-	  --from markdown \
-	  --toc --toc-depth=2 \
-	  --metadata title="The Villain in the Verse" \
-	  $(FILES)
+	pandoc -d pandoc.yaml -d pandoc.yaml --pdf-engine=xelatex -o $(OUT)/villain-in-the-verse.pdf $(SRC)
 
 book-epub:
-	pandoc -o $(OUT)/villain-in-the-verse.epub \
-	  --from markdown \
-	  --toc --toc-depth=2 \
-	  --metadata title="The Villain in the Verse" \
-	  $(FILES)
+	pandoc -d pandoc.yaml -d pandoc.yaml -o $(OUT)/villain-in-the-verse.epub $(SRC)
 
 book-docx:
-	pandoc -o $(OUT)/villain-in-the-verse.docx \
-	  --from markdown \
-	  --toc --toc-depth=2 \
-	  --metadata title="The Villain in the Verse" \
-	  $(FILES)
-
-lint:
-	@echo "(add markdown linting here)"
+	pandoc -d pandoc.yaml -d pandoc.yaml -o $(OUT)/villain-in-the-verse.docx $(SRC)
 
 lint:
 	@echo "(add markdown linting here)"

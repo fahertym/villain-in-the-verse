@@ -2,7 +2,7 @@
 
 If you know the old writing rule "Chekhov's Gun," you know the deal: if you show a rifle on the wall in Act 1, it better go off by Act 3. The Garden of Eden works the same way, except God doesn't just hang the rifle on the wall—He loads it, cocks it, paints it neon, plants it dead center in paradise, hires a talking snake to advertise it, and then acts shocked when someone pulls the trigger.
 
-We're told this is humanity's origin story—the moment we chose disobedience over trust, knowledge over innocence, pride over paradise. But if you strip away the theological PR and actually read the text like you'd read any other story, something becomes immediately clear: this isn't a fall from grace. It's a sting operation. And the guy running it isn't the snake.
+We're told this is humanity's origin story—the moment we chose disobedience over trust, knowledge over innocence, pride over paradise. But if you strip away the theological PR and actually read the text like you'd read any other story, something becomes immediately clear: this isn't a fall from grace. It's a string operation. And the guy running it isn't the snake.
 
 ### The Setup
 
