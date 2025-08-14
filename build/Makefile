@@ -42,3 +42,6 @@ book-docx:
 
 lint:
 	@echo "(add markdown linting here)"
+
+lint:
+	@echo "(add markdown linting here)"
