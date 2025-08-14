@@ -1,3 +1,4 @@
+include images.mk
 OUT=./_out
 SRC=../manuscript/frontmatter/titlepage.md \
     ../manuscript/frontmatter/introduction.md \
@@ -9,7 +10,7 @@ SRC=../manuscript/frontmatter/titlepage.md \
     ../manuscript/part5_exit_routes/exit_routes.md \
     ../manuscript/frontmatter/acknowledgments.md
 
-all: clean book-pdf book-epub book-docx
+all: images clean book-pdf book-epub book-docx
 
 clean:
 	@rm -rf $(OUT)
