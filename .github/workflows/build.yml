@@ -1,0 +1,25 @@
+name: build-book
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pandoc + TeX bits
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-xetex texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended fonts-dejavu fonts-liberation
+      - name: Build
+        run: make -C build all || make -C build book-pdf book-epub book-docx
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: villain-in-the-verse-artifacts
+          path: |
+            build/_out/villain-in-the-verse.pdf
+            build/_out/villain-in-the-verse.epub
+            build/_out/villain-in-the-verse.docx

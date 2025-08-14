@@ -1,5 +1,12 @@
 from: markdown
 toc: true
 toc-depth: 2
+pdf-engine: xelatex
 metadata:
   title: The Villain in the Verse
+variables:
+  mainfont: "Liberation Serif"
+  sansfont: "Liberation Sans"
+  monofont: "DejaVu Sans Mono"
+  papersize: "letter"
+  geometry: "margin=1in"
