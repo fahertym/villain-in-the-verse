@@ -27,3 +27,6 @@ book-docx:
 
 lint:
 	@echo "(add markdown linting here)"
+
+dist:
+	@mkdir -p ../dist && cp -v ./_out/* ../dist/
