@@ -6,6 +6,8 @@ SRC=../manuscript/frontmatter/titlepage.md \
     ../manuscript/part1_case_files/[0-2][0-9]-*.md \
     ../manuscript/part2_patterns/patterns_overview.md \
     ../manuscript/part2_patterns/[2-3][0-9]-*.md \
+    ../manuscript/part3_fallout/fallout_overview.md \
+    ../manuscript/part3_fallout/[3-4][0-9]-*.md \
     ../manuscript/frontmatter/acknowledgments.md
 
 all: images split clean book-pdf book-epub book-docx
