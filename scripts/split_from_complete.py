@@ -82,10 +82,11 @@ def split_complete_manuscript(src_path: Path, manuscript_dir: Path) -> int:
     (manuscript_dir / 'part4_apologetics').mkdir(exist_ok=True)
     (manuscript_dir / 'part5_exit_routes').mkdir(exist_ok=True)
     
-    # Clear existing files
-    for subdir in ['part1_case_files', 'part2_patterns']:
-        for f in (manuscript_dir / subdir).glob('*.md'):
-            if f.name != 'patterns_overview.md':  # Keep overview files
+    # Clear existing chapter files (keep overview files)
+    for subdir in ['part1_case_files', 'part2_patterns', 'part3_fallout']:
+        subdir_path = manuscript_dir / subdir
+        if subdir_path.exists():
+            for f in subdir_path.glob('[0-9][0-9]-*.md'):
                 f.unlink()
     
     written = 0
@@ -108,16 +109,16 @@ def split_complete_manuscript(src_path: Path, manuscript_dir: Path) -> int:
             title = section[3]
             filename = f"{chap_num:02d}-{slugify(title)}.md"
             
-            # Determine which part this chapter belongs to
-            if 1 <= chap_num <= 28:  # Case files
+            # Determine which part this chapter belongs to (matching TOC structure)
+            if 1 <= chap_num <= 28:  # Part I: The Receipts (Biblical Case Files)
                 out_path = manuscript_dir / 'part1_case_files' / filename
-            elif 29 <= chap_num <= 32:  # Patterns  
+            elif 29 <= chap_num <= 38:  # Part II: Pattern Recognition (How the Villain Operates)
                 out_path = manuscript_dir / 'part2_patterns' / filename
-            elif 33 <= chap_num <= 40:  # Fallout
+            elif 39 <= chap_num <= 42:  # Part III: Aftermath (Empire, Church, Power)
                 out_path = manuscript_dir / 'part3_fallout' / filename
-            elif 41 <= chap_num <= 50:  # Apologetics
+            elif 43 <= chap_num <= 50:  # Future expansion
                 out_path = manuscript_dir / 'part4_apologetics' / filename
-            else:  # Exit routes
+            else:  # Future expansion
                 out_path = manuscript_dir / 'part5_exit_routes' / filename
                 
             with out_path.open("w", encoding="utf-8") as f:

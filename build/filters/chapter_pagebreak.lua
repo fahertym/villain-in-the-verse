@@ -17,9 +17,9 @@ local function pagebreak_block()
 end
 
 function Header(el)
-  -- Chapters are level-2 headings (## ...)
-  if el.level == 2 then
-    -- Add page break before all level-2 headers (chapters)
+  -- Parts are level-1 headings (#), Chapters are level-2 headings (##)
+  if el.level == 1 or el.level == 2 then
+    -- Add page break before all level-1 (parts) and level-2 (chapters) headers
     return { pagebreak_block(), el }
   end
   return nil

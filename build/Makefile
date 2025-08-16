@@ -2,12 +2,10 @@ include images.mk
 OUT=./_out
 SRC=../manuscript/frontmatter/titlepage.md \
     ../manuscript/frontmatter/introduction.md \
-    ../manuscript/part1_case_files/*.md \
+    ../manuscript/part1_case_files/case_files_overview.md \
+    ../manuscript/part1_case_files/[0-2][0-9]-*.md \
     ../manuscript/part2_patterns/patterns_overview.md \
-    ../manuscript/part2_patterns/*.md \
-    ../manuscript/part3_fallout/fallout_overview.md \
-    ../manuscript/part4_apologetics/field_guide.md \
-    ../manuscript/part5_exit_routes/exit_routes.md \
+    ../manuscript/part2_patterns/[2-3][0-9]-*.md \
     ../manuscript/frontmatter/acknowledgments.md
 
 all: images split clean book-pdf book-epub book-docx
@@ -198,8 +196,30 @@ help:
 	@echo "  preview-build- Build HTML preview only"
 	@echo "  watch        - Auto-rebuild on file changes"
 	@echo ""
+	@echo "🧹 Cleanup:"
+	@echo "  cleanup-backups     - Clean backup dirs (keep 2 recent per type)"
+	@echo "  cleanup-backups-dry - Show what would be cleaned (dry run)"
+	@echo "  cleanup-backups-all - Remove ALL backup directories"
+	@echo "  cleanup-backups-old - Remove backups older than 7 days"
+	@echo ""
 	@echo "📦 Distribution:"
 	@echo "  dist         - Copy output files to dist/"
+
+cleanup-backups:
+	@echo "🧹 Cleaning up backup directories (keeping 2 most recent per type)..."
+	@python3 ../scripts/cleanup_backups.py --keep-recent 2
+
+cleanup-backups-dry:
+	@echo "🔍 Showing what backups would be cleaned up..."
+	@python3 ../scripts/cleanup_backups.py --keep-recent 2 --dry-run
+
+cleanup-backups-all:
+	@echo "🗑️  Removing ALL backup directories..."
+	@python3 ../scripts/cleanup_backups.py --all
+
+cleanup-backups-old:
+	@echo "🗓️  Removing backups older than 7 days..."
+	@python3 ../scripts/cleanup_backups.py --older-than 7
 
 dist:
 	@mkdir -p ../dist && cp -v ./_out/* ../dist/
