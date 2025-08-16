@@ -18,10 +18,15 @@
 \setsansfont[Scale=MatchLowercase]{Liberation Sans}
 \setmonofont[Scale=MatchLowercase]{DejaVu Sans Mono}
 
-% Better typography
+% Better typography and paragraph formatting
 \usepackage{microtype}
 \usepackage{setspace}
-\setstretch{1.15} % Slightly increased line spacing for readability
+\setstretch{1.25} % Better line spacing for readability
+
+% Paragraph formatting
+\setlength{\parindent}{0pt} % No paragraph indentation
+\setlength{\parskip}{0.8em} % Space between paragraphs
+\raggedbottom % Prevent stretching of page content
 
 % Enhanced geometry with better margins
 \usepackage[
@@ -41,18 +46,36 @@
 
 % Enhanced chapter styling
 \usepackage{titlesec}
-\titleformat{\chapter}[display]
-  {\normalfont\huge\bfseries\color{chaptercolor}}
-  {\chaptertitlename\ \thechapter}{20pt}{\Huge}
-\titlespacing*{\chapter}{0pt}{-50pt}{40pt}
+\usepackage{lettrine} % For drop caps
+\usepackage{tikz}     % For decorative elements
 
-\titleformat{\section}
-  {\normalfont\Large\bfseries\color{chaptercolor}}
-  {\thesection}{1em}{}
-  
+% Custom chapter formatting - clean and elegant
+\titleformat{\section}[display]
+  {\centering\normalfont\Large\bfseries\color{chaptercolor}}
+  {}{0pt}
+  {\vspace{2em}\rule{0.8\textwidth}{1.5pt}\\[1em]\huge}[\vspace{2em}]
+\titlespacing*{\section}{0pt}{0pt}{0pt}
+
+% No chapter formatting (using sections as main chapters)
+\titleformat{\chapter}[display]
+  {\centering\normalfont\Large\bfseries\color{chaptercolor}}
+  {}{0pt}
+  {\vspace{1em}\rule{0.6\textwidth}{2pt}\\[0.8em]\LARGE}[\vspace{1.5em}]
+\titlespacing*{\chapter}{0pt}{0pt}{0pt}
+
+% Subsection styling (h3) - clean and readable
 \titleformat{\subsection}
-  {\normalfont\large\bfseries}
-  {\thesubsection}{1em}{}
+  {\normalfont\large\bfseries\color{chaptercolor}}
+  {}{0pt}
+  {}[\vspace{0.5em}]
+\titlespacing*{\subsection}{0pt}{1.5em}{0.5em}
+
+% Subsubsection styling (h4)
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\color{black!70}}
+  {}{0pt}
+  {}
+\titlespacing*{\subsubsection}{0pt}{1em}{0.5em}
 
 % Headers and footers
 \usepackage{fancyhdr}
@@ -78,9 +101,29 @@
 
 % Better quote styling
 \usepackage{csquotes}
+\usepackage{framed}
 \renewenvironment{quote}
-  {\begin{quotation}\itshape\small}
-  {\end{quotation}}
+  {\begin{leftbar}
+   \itshape\small\color{black!80}
+   \setlength{\parindent}{0pt}
+   \setlength{\parskip}{0.5em}}
+  {\end{leftbar}}
+
+% Custom quotation environment for biblical quotes
+\newenvironment{biblequote}
+  {\begin{center}
+   \begin{minipage}{0.8\textwidth}
+   \begin{framed}
+   \itshape\small\color{chaptercolor!80}
+   \setlength{\parindent}{0pt}}
+  {\end{framed}
+   \end{minipage}
+   \end{center}}
+
+% Enhanced emphasis and styling
+\renewcommand{\emph}[1]{\textit{\color{chaptercolor!80}#1}}
+\newcommand{\villain}[1]{\textbf{\color{chaptercolor}#1}}
+\newcommand{\receipt}[1]{\textsc{\color{black!60}#1}}
 
 % Links and cross-references
 \usepackage{hyperref}

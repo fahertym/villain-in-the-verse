@@ -1,6 +1,6 @@
 from: markdown
 toc: true
-toc-depth: 3
+toc-depth: 2
 pdf-engine: xelatex
 template: "templates/custom.latex"
 filters:

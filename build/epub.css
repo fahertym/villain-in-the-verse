@@ -23,65 +23,136 @@ h1 {
   font-weight: bold;
   font-size: 2.5em;
   line-height: 1.2;
-  margin: 1.5em 0 1em 0;
+  margin: 2em 0 1.5em 0;
   text-align: center;
   page-break-after: avoid;
   break-after: avoid;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+h1::before {
+  content: "⚡";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4em;
+  opacity: 0.1;
+  z-index: -1;
+  color: #8B0000;
+}
+
+h1::after {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 2px;
+  background: #8B0000;
+  margin: 0.5em auto 0;
 }
 
 h2 {
   color: #8B0000; /* Dark red for chapters */
   font-weight: bold;
-  font-size: 1.8em;
-  line-height: 1.3;
-  margin: 2em 0 1em 0;
+  font-size: 1.6em;
+  line-height: 1.4;
+  margin: 3em 0 2em 0;
   page-break-after: avoid;
   break-after: avoid;
-  border-bottom: 2px solid #8B0000;
-  padding-bottom: 0.5em;
+  text-align: center;
+  position: relative;
+  padding: 0.5em 0 1.5em 0;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 2px;
+  background: #8B0000;
+  margin: 1em auto 0;
 }
 
 h3 {
-  color: #444;
+  color: #8B0000;
   font-weight: bold;
-  font-size: 1.3em;
-  margin: 1.5em 0 0.75em 0;
+  font-size: 1.25em;
+  margin: 2em 0 1em 0;
   page-break-after: avoid;
   break-after: avoid;
+  text-align: left;
 }
 
 h4 {
   color: #666;
   font-weight: bold;
   font-size: 1.1em;
-  margin: 1.2em 0 0.6em 0;
+  margin: 1.5em 0 0.8em 0;
+  text-align: left;
 }
 
 /* Enhanced paragraph styling */
 p {
-  margin: 1em 0;
+  margin: 0 0 1em 0;
   text-align: justify;
   hyphenate: auto;
   hyphens: auto;
+  line-height: 1.7;
+  text-indent: 0; /* No paragraph indentation */
 }
 
 /* First paragraph after headings */
-h2 + p, h3 + p, h4 + p {
-  margin-top: 0.5em;
+h1 + p, h2 + p, h3 + p, h4 + p {
+  margin-top: 1em;
+}
+
+/* Better spacing for content flow */
+p + h3, p + h4 {
+  margin-top: 2em;
 }
 
 /* Enhanced blockquotes */
 blockquote {
-  margin: 1.5em 2em;
-  padding: 1em;
-  background-color: #f8f8f8;
-  border-left: 4px solid #8B0000;
+  margin: 1.5em 1em;
+  padding: 1.5em;
+  background: linear-gradient(135deg, #f9f9f9 0%, #f5f5f5 100%);
+  border-left: 5px solid #8B0000;
+  border-radius: 0 5px 5px 0;
   font-style: italic;
   font-size: 0.95em;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+blockquote::before {
+  content: """;
+  font-size: 3em;
+  color: #8B0000;
+  opacity: 0.3;
+  position: absolute;
+  top: 0.2em;
+  left: 0.3em;
+  line-height: 1;
 }
 
 blockquote p {
   margin: 0.5em 0;
+  padding-left: 1em;
+}
+
+/* Special biblical quote styling */
+.biblical-quote {
+  background: linear-gradient(135deg, #fff8f8 0%, #ffeee8 100%);
+  border: 2px solid #8B0000;
+  border-radius: 8px;
+  padding: 1.5em;
+  margin: 2em auto;
+  max-width: 80%;
+  text-align: center;
+  font-style: italic;
+  color: #8B0000;
 }
 
 /* Enhanced lists */
@@ -106,11 +177,36 @@ code {
 
 em {
   font-style: italic;
+  color: #8B0000;
+  opacity: 0.8;
 }
 
 strong {
   font-weight: bold;
-  color: #222;
+  color: #8B0000;
+}
+
+/* Special emphasis classes for thematic content */
+.villain {
+  font-weight: bold;
+  color: #8B0000;
+  text-shadow: 1px 1px 2px rgba(139,0,0,0.1);
+}
+
+.receipt {
+  font-variant: small-caps;
+  color: #666;
+  letter-spacing: 1px;
+}
+
+/* Drop cap styling for chapter openings */
+.drop-cap {
+  float: left;
+  font-size: 4em;
+  line-height: 0.8;
+  margin: 0.1em 0.1em 0 0;
+  color: #8B0000;
+  font-weight: bold;
 }
 
 /* Links */

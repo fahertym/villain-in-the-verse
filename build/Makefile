@@ -24,10 +24,10 @@ book-pdf:
 	pandoc -d pandoc.yaml --resource-path=..:../.. --pdf-engine=xelatex -o $(OUT)/villain-in-the-verse.pdf $(SRC)
 
 book-epub:
-	pandoc -d pandoc.yaml --resource-path=..:../.. -o $(OUT)/villain-in-the-verse.epub $(SRC)
+	pandoc -d pandoc-epub.yaml --resource-path=..:../.. -o $(OUT)/villain-in-the-verse.epub $(SRC)
 
 book-docx:
-	pandoc -d pandoc.yaml --resource-path=..:../.. -o $(OUT)/villain-in-the-verse.docx $(SRC)
+	pandoc -d pandoc-epub.yaml --resource-path=..:../.. -o $(OUT)/villain-in-the-verse.docx $(SRC)
 
 lint:
 	@echo "🔍 Linting manuscript..."

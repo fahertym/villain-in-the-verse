@@ -1,0 +1,17 @@
+from: markdown
+toc: true
+toc-depth: 2
+filters:
+  - "filters/chapter_pagebreak.lua"
+epub-chapter-level: 2
+css:
+  - "epub.css"
+metadata:
+  title: "The Villain in the Verse"
+  subtitle: "A Guide to the Bible's Actual Antagonist"
+  author: "Matt Faherty"
+  date: \today
+  lang: en-US
+resource-path:
+  - ".."
+  - "."
