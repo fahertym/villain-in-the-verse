@@ -2,6 +2,11 @@ from: markdown
 toc: true
 toc-depth: 2
 pdf-engine: xelatex
+filters:
+  - "filters/chapter_pagebreak.lua"
+epub-chapter-level: 2
+css:
+  - "epub.css"
 metadata:
   title: The Villain in the Verse
 variables:

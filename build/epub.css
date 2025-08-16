@@ -1,0 +1,19 @@
+/* CSS for EPUB formatting */
+
+/* Page break before chapters */
+.pagebreak {
+  page-break-before: always;
+  break-before: page;
+}
+
+/* Ensure chapter headings don't break across pages */
+h2 {
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+/* Better spacing for chapter headings */
+h2 {
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
