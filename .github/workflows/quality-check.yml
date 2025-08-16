@@ -1,0 +1,147 @@
+name: Quality Check
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'manuscript/**'
+      - 'villain-verse-complete.md'
+      - 'scripts/**'
+      - 'build/**'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'manuscript/**'
+      - 'villain-verse-complete.md'
+      - 'scripts/**'
+      - 'build/**'
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended texlive-fonts-extra
+        
+    - name: Set up Node.js for linting tools
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install linting tools
+      run: |
+        npm install -g markdownlint-cli
+        
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        # Add any Python dependencies here if needed
+        
+    - name: Check file structure
+      run: |
+        echo "📁 Checking required files and directories..."
+        python3 scripts/quality_check.py --json | jq '.file_structure'
+        
+    - name: Check sync status
+      run: |
+        echo "🔄 Checking sync between master and split files..."
+        python3 scripts/sync_checker.py --json
+        
+    - name: Run linting checks
+      run: |
+        echo "🔍 Running linting checks..."
+        cd build && make lint
+        
+    - name: Check word count and progress
+      run: |
+        echo "📊 Analyzing word count and progress..."
+        python3 scripts/word_count.py --json
+        
+    - name: Test build process
+      run: |
+        echo "🔨 Testing build process..."
+        cd build && make clean book-pdf book-epub book-docx
+        
+    - name: Run comprehensive quality check
+      run: |
+        echo "🎯 Running comprehensive quality check..."
+        python3 scripts/quality_check.py --json
+        
+    - name: Upload build artifacts
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: built-manuscript
+        path: build/_out/*
+        retention-days: 7
+        
+    - name: Comment on PR
+      if: github.event_name == 'pull_request' && (success() || failure())
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const { execSync } = require('child_process');
+          
+          // Run quality check and get results
+          try {
+            const qualityResult = execSync('python3 scripts/quality_check.py --json', { encoding: 'utf8' });
+            const quality = JSON.parse(qualityResult);
+            
+            const wordCountResult = execSync('python3 scripts/word_count.py --json', { encoding: 'utf8' });
+            const wordCount = JSON.parse(wordCountResult);
+            
+            const totalWords = wordCount.reduce((sum, file) => sum + (file.words || 0), 0);
+            const totalFiles = wordCount.filter(file => !file.error).length;
+            
+            const passedChecks = Object.values(quality).filter(check => check.status === 'success').length;
+            const totalChecks = Object.keys(quality).length;
+            
+            const status = passedChecks === totalChecks ? '✅ PASSED' : '❌ FAILED';
+            
+            const comment = `## 📋 Quality Check Report
+            
+**Overall Status:** ${status} (${passedChecks}/${totalChecks} checks passed)
+
+### 📊 Manuscript Statistics
+- **Total files:** ${totalFiles}
+- **Total words:** ${totalWords.toLocaleString()}
+- **Estimated reading time:** ~${Math.round(totalWords / 200)} minutes
+
+### 🔍 Quality Checks
+${Object.entries(quality).map(([name, result]) => {
+  const icon = result.status === 'success' ? '✅' : '❌';
+  const message = result.message || (result.status === 'success' ? 'OK' : 'Failed');
+  return `- ${icon} **${name.replace('_', ' ')}:** ${message}`;
+}).join('\n')}
+
+${passedChecks !== totalChecks ? '\n⚠️ Please fix the failing checks before merging.' : '\n🎉 All quality checks passed!'}
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+          } catch (error) {
+            console.error('Error generating quality report:', error);
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## ❌ Quality Check Failed\n\nError running quality checks: ${error.message}`
+            });
+          }

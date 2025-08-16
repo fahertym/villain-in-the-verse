@@ -18,6 +18,11 @@ jobs:
             texlive-fonts-recommended fonts-dejavu fonts-liberation \
             librsvg2-bin
 
+      - name: Run Quality Checks
+        run: |
+          chmod +x scripts/*.py
+          make -C build quality
+      
       - name: Build
         run: make -C build all
 

@@ -1,0 +1,161 @@
+% Custom LaTeX template for The Villain in the Verse
+% Based on Pandoc's default template with enhancements
+
+\documentclass[
+  $if(fontsize)$$fontsize$,$endif$
+  $if(papersize)$$papersize$paper,$endif$
+]{$if(documentclass)$$documentclass$$else$article$endif$}
+
+% Enhanced font configuration
+\usepackage{fontspec}
+\setmainfont[
+  Ligatures=TeX,
+  Numbers=OldStyle,
+  BoldFont={Liberation Serif Bold},
+  ItalicFont={Liberation Serif Italic},
+  BoldItalicFont={Liberation Serif Bold Italic}
+]{Liberation Serif}
+\setsansfont[Scale=MatchLowercase]{Liberation Sans}
+\setmonofont[Scale=MatchLowercase]{DejaVu Sans Mono}
+
+% Better typography
+\usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.15} % Slightly increased line spacing for readability
+
+% Enhanced geometry with better margins
+\usepackage[
+  top=1.25in,
+  bottom=1.25in,
+  left=1.5in,
+  right=1in,
+  includehead,
+  includefoot,
+  headheight=15pt
+]{geometry}
+
+% Color definitions
+\usepackage{xcolor}
+\definecolor{chaptercolor}{RGB}{139, 0, 0} % Dark red for chapter titles
+\definecolor{linkcolor}{RGB}{0, 0, 139}    % Dark blue for links
+
+% Enhanced chapter styling
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{chaptercolor}}
+  {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-50pt}{40pt}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{chaptercolor}}
+  {\thesection}{1em}{}
+  
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {\thesubsection}{1em}{}
+
+% Headers and footers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[LO]{\nouppercase{\rightmark}} % Chapter name on odd pages
+\fancyhead[RE]{\textit{The Villain in the Verse}} % Book title on even pages
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Custom chapter page style (no header)
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+% Enhanced lists and quotes
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.5em, itemsep=0.5em}
+\setlist[enumerate]{leftmargin=1.5em, itemsep=0.5em}
+
+% Better quote styling
+\usepackage{csquotes}
+\renewenvironment{quote}
+  {\begin{quotation}\itshape\small}
+  {\end{quotation}}
+
+% Links and cross-references
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=linkcolor,
+  urlcolor=linkcolor,
+  citecolor=linkcolor,
+  pdfborder={0 0 0},
+  breaklinks=true
+}
+
+% Math support (if needed)
+\usepackage{amsmath,amssymb}
+
+% Graphics and figures
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% Table formatting
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+% Title page customization
+\makeatletter
+\renewcommand{\maketitle}{
+  \begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\Huge\bfseries\color{chaptercolor} $title$ \par}
+    \vspace{1cm}
+    {\Large $subtitle$ \par}
+    \vspace{2cm}
+    {\large\textsc{$author$} \par}
+    
+    \vfill
+    
+    \vspace{2cm}
+  \end{titlepage}
+  \cleardoublepage
+}
+\makeatother
+
+% Fix checkmark character issue
+\usepackage{textcomp,newunicodechar}
+\newunicodechar{✓}{\checkmark}
+
+% Pandoc-specific definitions
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Document begins
+\begin{document}
+
+$if(title)$
+\maketitle
+$endif$
+
+$if(toc)$
+{
+\hypersetup{linkcolor=black}
+\setcounter{tocdepth}{$toc-depth$}
+\tableofcontents
+\cleardoublepage
+}
+$endif$
+
+$body$
+
+\end{document}

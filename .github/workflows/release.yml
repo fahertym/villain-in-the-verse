@@ -1,32 +1,150 @@
-name: release-book
+name: Build Release
+
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., v1.0.0)'
+        required: true
+        default: 'v1.0.0'
 
 jobs:
-  build-and-release:
+  build-release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write  # needed to create a GitHub Release
+    
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Install pandoc + TeX + SVG converter
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            pandoc texlive-xetex texlive-latex-recommended texlive-latex-extra \
-            texlive-fonts-recommended fonts-dejavu fonts-liberation \
-            librsvg2-bin
-
-      - name: Build
-        run: make -C build all
-
-      - name: Create GitHub Release and upload artifacts
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            build/_out/villain-in-the-verse.pdf
-            build/_out/villain-in-the-verse.epub
-            build/_out/villain-in-the-verse.docx
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          pandoc \
+          texlive-xetex \
+          texlive-fonts-recommended \
+          texlive-fonts-extra \
+          texlive-latex-extra \
+          librsvg2-bin
+          
+    - name: Set up Node.js for linting
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install linting tools
+      run: npm install -g markdownlint-cli
+      
+    - name: Run quality checks
+      run: |
+        echo "🔍 Running pre-build quality checks..."
+        python3 scripts/quality_check.py
+        
+    - name: Build all formats
+      run: |
+        echo "🔨 Building release artifacts..."
+        cd build
+        make all
+        
+    - name: Generate release notes
+      run: |
+        echo "📝 Generating release notes..."
+        python3 scripts/word_count.py --json > build/_out/statistics.json
+        
+        # Create release notes
+        cat > build/_out/RELEASE_NOTES.md << EOF
+        # The Villain in the Verse - Release ${{ github.ref_name || github.event.inputs.version }}
+        
+        Generated on: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+        
+        ## 📊 Statistics
+        
+        $(python3 scripts/word_count.py --target 80000 | grep -A 20 "SUMMARY STATISTICS")
+        
+        ## 📖 Formats
+        
+        This release includes the manuscript in multiple formats:
+        
+        - **PDF** - High-quality print-ready format
+        - **EPUB** - E-reader compatible format  
+        - **DOCX** - Microsoft Word format for editing
+        
+        ## 🔍 Quality Assurance
+        
+        This release has passed all automated quality checks:
+        
+        $(python3 scripts/quality_check.py 2>/dev/null | grep -A 10 "OVERALL STATUS" || echo "Quality check completed successfully")
+        
+        ## 📋 Files Included
+        
+        - \`villain-in-the-verse.pdf\` - PDF version
+        - \`villain-in-the-verse.epub\` - EPUB version
+        - \`villain-in-the-verse.docx\` - Word version
+        - \`statistics.json\` - Word count and chapter statistics
+        - \`RELEASE_NOTES.md\` - This file
+        EOF
+        
+    - name: Create release archive
+      run: |
+        cd build/_out
+        zip -r "villain-in-the-verse-${{ github.ref_name || github.event.inputs.version }}.zip" .
+        
+    - name: Upload release artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: release-${{ github.ref_name || github.event.inputs.version }}
+        path: build/_out/
+        retention-days: 90
+        
+    - name: Create GitHub Release
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: The Villain in the Verse ${{ github.ref_name }}
+        body_path: build/_out/RELEASE_NOTES.md
+        draft: false
+        prerelease: false
+        
+    - name: Upload PDF to Release
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: build/_out/villain-in-the-verse.pdf
+        asset_name: villain-in-the-verse-${{ github.ref_name }}.pdf
+        asset_content_type: application/pdf
+        
+    - name: Upload EPUB to Release
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: build/_out/villain-in-the-verse.epub
+        asset_name: villain-in-the-verse-${{ github.ref_name }}.epub
+        asset_content_type: application/epub+zip
+        
+    - name: Upload DOCX to Release
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: build/_out/villain-in-the-verse.docx
+        asset_name: villain-in-the-verse-${{ github.ref_name }}.docx
+        asset_content_type: application/vnd.openxmlformats-officedocument.wordprocessingml.document

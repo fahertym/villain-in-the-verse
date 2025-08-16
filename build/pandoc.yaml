@@ -2,23 +2,36 @@ from: markdown
 toc: true
 toc-depth: 2
 pdf-engine: xelatex
+template: "templates/custom.latex"
 filters:
   - "filters/chapter_pagebreak.lua"
 epub-chapter-level: 2
 css:
   - "epub.css"
 metadata:
-  title: The Villain in the Verse
-  subtitle: A Guide to the Bible's Actual Antagonist
-  author: Matt Faherty
+  title: "The Villain in the Verse"
+  subtitle: "A Guide to the Bible's Actual Antagonist"
+  author: "Matt Faherty"
+  date: \today
+  lang: en-US
+  documentclass: book
+  fontsize: 11pt
+  linestretch: 1.15
 variables:
   mainfont: "Liberation Serif"
   sansfont: "Liberation Sans"
   monofont: "DejaVu Sans Mono"
   papersize: "letter"
-  geometry: "margin=1in"
+  # Enhanced typography
+  microtypeoptions: "protrusion=true,expansion=true"
+  # Better PDF metadata
+  colorlinks: true
+  linkcolor: "blue"
+  urlcolor: "blue"
+  citecolor: "blue"
 resource-path:
   - ".."
   - "."
 pdf-engine-opt:
   - "-shell-escape"
+  - "-interaction=nonstopmode"

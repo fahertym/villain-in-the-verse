@@ -1,4 +1,15 @@
-/* CSS for EPUB formatting */
+/* Enhanced CSS for EPUB formatting */
+
+/* Typography and base styles */
+body {
+  font-family: "Liberation Serif", Georgia, serif;
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #333;
+  max-width: 40em;
+  margin: 0 auto;
+  padding: 1em;
+}
 
 /* Page break before chapters */
 .pagebreak {
@@ -6,14 +17,173 @@
   break-before: page;
 }
 
-/* Ensure chapter headings don't break across pages */
-h2 {
+/* Enhanced chapter styling */
+h1 {
+  color: #8B0000; /* Dark red */
+  font-weight: bold;
+  font-size: 2.5em;
+  line-height: 1.2;
+  margin: 1.5em 0 1em 0;
+  text-align: center;
   page-break-after: avoid;
   break-after: avoid;
 }
 
-/* Better spacing for chapter headings */
 h2 {
-  margin-top: 2em;
-  margin-bottom: 1em;
+  color: #8B0000; /* Dark red for chapters */
+  font-weight: bold;
+  font-size: 1.8em;
+  line-height: 1.3;
+  margin: 2em 0 1em 0;
+  page-break-after: avoid;
+  break-after: avoid;
+  border-bottom: 2px solid #8B0000;
+  padding-bottom: 0.5em;
+}
+
+h3 {
+  color: #444;
+  font-weight: bold;
+  font-size: 1.3em;
+  margin: 1.5em 0 0.75em 0;
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+h4 {
+  color: #666;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin: 1.2em 0 0.6em 0;
+}
+
+/* Enhanced paragraph styling */
+p {
+  margin: 1em 0;
+  text-align: justify;
+  hyphenate: auto;
+  hyphens: auto;
+}
+
+/* First paragraph after headings */
+h2 + p, h3 + p, h4 + p {
+  margin-top: 0.5em;
+}
+
+/* Enhanced blockquotes */
+blockquote {
+  margin: 1.5em 2em;
+  padding: 1em;
+  background-color: #f8f8f8;
+  border-left: 4px solid #8B0000;
+  font-style: italic;
+  font-size: 0.95em;
+}
+
+blockquote p {
+  margin: 0.5em 0;
+}
+
+/* Enhanced lists */
+ul, ol {
+  margin: 1em 0;
+  padding-left: 2em;
+}
+
+li {
+  margin: 0.5em 0;
+  line-height: 1.5;
+}
+
+/* Code and emphasis */
+code {
+  font-family: "DejaVu Sans Mono", monospace;
+  background-color: #f5f5f5;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: bold;
+  color: #222;
+}
+
+/* Links */
+a {
+  color: #00008B; /* Dark blue */
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #8B0000;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 0.75em;
+  text-align: left;
+}
+
+th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+}
+
+/* Horizontal rules */
+hr {
+  border: none;
+  border-top: 2px solid #8B0000;
+  margin: 2em 0;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Special styling for apology boxes and exhibits */
+.apology-box {
+  background-color: #fff5f5;
+  border: 2px solid #8B0000;
+  border-radius: 5px;
+  padding: 1em;
+  margin: 1.5em 0;
+}
+
+.exhibit {
+  background-color: #f0f8ff;
+  border-left: 4px solid #00008B;
+  padding: 1em;
+  margin: 1.5em 0;
+  font-size: 0.95em;
+}
+
+/* Responsive design for different screen sizes */
+@media screen and (max-width: 600px) {
+  body {
+    font-size: 1em;
+    padding: 0.5em;
+  }
+  
+  h1 {
+    font-size: 2em;
+  }
+  
+  h2 {
+    font-size: 1.5em;
+  }
+  
+  blockquote {
+    margin: 1em 1em;
+  }
 }
