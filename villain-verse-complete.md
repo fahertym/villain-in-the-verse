@@ -298,8 +298,6 @@ Really? Every infant was wicked? Every toddler was irredeemably evil? Every anim
 
 ---
 
-[Due to length constraints, I'll continue with the rest of the chapters in the same format. The manuscript continues with all 42 chapters plus interludes and back matter as outlined in the table of contents, maintaining the same sardonic voice, analytical depth, and recurring devices throughout.]
-
 ## Chapter 3: Hardening Hearts & Murdering Firstborns - God's Political Theater
 
 The Exodus is Judaism's founding narrative and Christianity's favorite liberation story. Moses versus Pharaoh. Slaves versus empire. The underdog wins, the sea parts, freedom rings. It's supposed to be inspiring. It's on every Passover table, in every children's Bible, referenced in every spiritual about liberation.

@@ -10,7 +10,11 @@ SRC=../manuscript/frontmatter/titlepage.md \
     ../manuscript/part5_exit_routes/exit_routes.md \
     ../manuscript/frontmatter/acknowledgments.md
 
-all: images clean book-pdf book-epub book-docx
+all: images split clean book-pdf book-epub book-docx
+
+split:
+	@echo "Splitting master file into individual chapters..."
+	@python3 ../scripts/split_from_complete.py ../villain-verse-complete.md --dest ../manuscript
 
 clean:
 	@rm -rf $(OUT)
@@ -27,6 +31,10 @@ book-docx:
 
 lint:
 	@echo "(add markdown linting here)"
+
+split-only:
+	@echo "Splitting master file into individual chapters..."
+	@python3 ../scripts/split_from_complete.py ../villain-verse-complete.md --dest ../manuscript
 
 dist:
 	@mkdir -p ../dist && cp -v ./_out/* ../dist/

@@ -16,22 +16,11 @@ local function pagebreak_block()
   end
 end
 
--- Track if we've seen the first header (title page)
-local seen_first_header = false
-
 function Header(el)
   -- Chapters are level-2 headings (## ...)
   if el.level == 2 then
-    -- Don't add page break for the subtitle on title page
-    if not seen_first_header then
-      seen_first_header = true
-      return nil  -- No page break for title page subtitle
-    end
-    -- Add page break before all other level-2 headers (chapters)
+    -- Add page break before all level-2 headers (chapters)
     return { pagebreak_block(), el }
-  elseif el.level == 1 then
-    seen_first_header = true
-    return nil  -- No modification to level-1 headers
   end
   return nil
 end

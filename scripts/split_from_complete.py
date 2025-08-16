@@ -9,6 +9,8 @@ from pathlib import Path
 
 
 CHAPTER_RE = re.compile(r"^##\s+Chapter\s+(\d+)\s*:\s*(.+?)\s*$")
+INTRO_RE = re.compile(r"^##\s+Introduction\s*:\s*(.+?)\s*$")
+PART_RE = re.compile(r"^##\s+Part\s+([IVX]+)\s*:\s*(.+?)\s*$")
 
 
 def slugify(text: str) -> str:
@@ -31,60 +33,118 @@ def backup_directory(dir_path: Path) -> Path:
     return backup
 
 
-def split_chapters(src_path: Path, dest_dir: Path) -> int:
+def split_complete_manuscript(src_path: Path, manuscript_dir: Path) -> int:
     with src_path.open("r", encoding="utf-8") as f:
-        lines = f.readlines()
-
-    # Find chapter headings
-    chapter_indices = []  # list of (line_index, chapter_num, title)
+        content = f.read()
+    
+    lines = content.splitlines(keepends=True)
+    
+    # Find all sections
+    sections = []
     for idx, line in enumerate(lines):
-        m = CHAPTER_RE.match(line)
-        if m:
-            chapter_indices.append((idx, int(m.group(1)), m.group(2)))
-
-    if not chapter_indices:
-        raise SystemExit("No chapter headings found with pattern '## Chapter N: Title'.")
-
-    # Ensure destination exists and back it up
-    dest_dir.mkdir(parents=True, exist_ok=True)
-    backup = backup_directory(dest_dir)
-
-    # Clear existing numbered chapter files to avoid stale content (keep backups we just created)
-    for fpath in dest_dir.glob("*.md"):
-        fpath.unlink()
-
-    # Write each chapter
+        # Introduction
+        intro_match = INTRO_RE.match(line)
+        if intro_match:
+            sections.append((idx, 'intro', intro_match.group(1)))
+            continue
+            
+        # Parts
+        part_match = PART_RE.match(line)
+        if part_match:
+            sections.append((idx, 'part', part_match.group(1), part_match.group(2)))
+            continue
+            
+        # Chapters
+        chapter_match = CHAPTER_RE.match(line)
+        if chapter_match:
+            sections.append((idx, 'chapter', int(chapter_match.group(1)), chapter_match.group(2)))
+    
+    if not sections:
+        raise SystemExit("No sections found. Expected Introduction, Parts, and Chapters.")
+    
+    # Ensure manuscript directory exists
+    manuscript_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Backup existing directories
+    backup_dirs = []
+    for subdir in ['frontmatter', 'part1_case_files', 'part2_patterns', 'part3_fallout', 'part4_apologetics', 'part5_exit_routes']:
+        dir_path = manuscript_dir / subdir
+        if dir_path.exists():
+            backup = backup_directory(dir_path)
+            if backup:
+                backup_dirs.append(backup)
+    
+    # Create directory structure
+    (manuscript_dir / 'frontmatter').mkdir(exist_ok=True)
+    (manuscript_dir / 'part1_case_files').mkdir(exist_ok=True) 
+    (manuscript_dir / 'part2_patterns').mkdir(exist_ok=True)
+    (manuscript_dir / 'part3_fallout').mkdir(exist_ok=True)
+    (manuscript_dir / 'part4_apologetics').mkdir(exist_ok=True)
+    (manuscript_dir / 'part5_exit_routes').mkdir(exist_ok=True)
+    
+    # Clear existing files
+    for subdir in ['part1_case_files', 'part2_patterns']:
+        for f in (manuscript_dir / subdir).glob('*.md'):
+            if f.name != 'patterns_overview.md':  # Keep overview files
+                f.unlink()
+    
     written = 0
-    for i, (start_idx, chap_num, title) in enumerate(chapter_indices):
-        end_idx = chapter_indices[i + 1][0] if i + 1 < len(chapter_indices) else len(lines)
+    
+    # Process each section
+    for i, section in enumerate(sections):
+        start_idx = section[0]
+        end_idx = sections[i + 1][0] if i + 1 < len(sections) else len(lines)
         segment = "".join(lines[start_idx:end_idx]).rstrip() + "\n"
-        filename = f"{chap_num:02d}-{slugify(title)}.md"
-        out_path = dest_dir / filename
-        with out_path.open("w", encoding="utf-8") as out:
-            out.write(segment)
-        written += 1
-
+        
+        if section[1] == 'intro':
+            # Write introduction
+            out_path = manuscript_dir / 'frontmatter' / 'introduction.md'
+            with out_path.open("w", encoding="utf-8") as f:
+                f.write(segment)
+            written += 1
+            
+        elif section[1] == 'chapter':
+            chap_num = section[2]
+            title = section[3]
+            filename = f"{chap_num:02d}-{slugify(title)}.md"
+            
+            # Determine which part this chapter belongs to
+            if 1 <= chap_num <= 28:  # Case files
+                out_path = manuscript_dir / 'part1_case_files' / filename
+            elif 29 <= chap_num <= 32:  # Patterns  
+                out_path = manuscript_dir / 'part2_patterns' / filename
+            elif 33 <= chap_num <= 40:  # Fallout
+                out_path = manuscript_dir / 'part3_fallout' / filename
+            elif 41 <= chap_num <= 50:  # Apologetics
+                out_path = manuscript_dir / 'part4_apologetics' / filename
+            else:  # Exit routes
+                out_path = manuscript_dir / 'part5_exit_routes' / filename
+                
+            with out_path.open("w", encoding="utf-8") as f:
+                f.write(segment)
+            written += 1
+    
     # Report
-    if backup:
-        print(f"Backed up previous files to: {backup}")
-    print(f"Wrote {written} chapter files to {dest_dir}")
+    if backup_dirs:
+        print(f"Backed up previous files to: {', '.join(str(b) for b in backup_dirs)}")
+    print(f"Split {written} sections from {src_path} into {manuscript_dir}")
     return written
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Split a combined manuscript into per-chapter files.")
     parser.add_argument("src", nargs="?", default="villain-verse-complete.md", help="Path to combined manuscript (default: villain-verse-complete.md)")
-    parser.add_argument("--dest", default="manuscript/part1_case_files", help="Destination directory for chapter files")
+    parser.add_argument("--dest", default="manuscript", help="Destination directory for manuscript files")
     args = parser.parse_args(argv)
 
     src_path = Path(args.src).resolve()
-    dest_dir = Path(args.dest).resolve()
+    manuscript_dir = Path(args.dest).resolve()
 
     if not src_path.exists():
         print(f"Source file not found: {src_path}", file=sys.stderr)
         return 1
 
-    split_chapters(src_path, dest_dir)
+    split_complete_manuscript(src_path, manuscript_dir)
     return 0
 
 
